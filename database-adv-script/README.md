@@ -77,3 +77,57 @@ This task demonstrates how to:
 - Use **correlated subqueries** for row-by-row comparisons.  
 - Combine logic to produce efficient, readable SQL for analytical use cases.
 
+- ---
+
+## Task 2: Apply Aggregations and Window Functions
+
+### Objective
+Use SQL aggregation and window functions to perform analytical operations on Airbnb booking data.
+
+### Files
+- `aggregations_and_window_functions.sql` — contains queries for aggregation and ranking.
+
+---
+
+### 1️⃣ Aggregation Query: Total Bookings per User
+**Goal:** Find the total number of bookings made by each user.
+
+**SQL Logic:**
+- Join the `users` and `bookings` tables.
+- Use the `COUNT()` function to count bookings per user.
+- Use `GROUP BY` to group by each unique user.
+
+**Expected Output Example:**
+| user_id | user_name | total_bookings |
+|----------|-------------|----------------|
+| 1 | Kwame Mensah | 5 |
+| 2 | Sarah Boateng | 3 |
+| 3 | Kojo Antwi | 0 |
+
+---
+
+### 2️⃣ Window Function Query: Rank Properties by Bookings
+**Goal:** Rank properties based on how many bookings they’ve received.
+
+**SQL Logic:**
+- Join `properties` and `bookings` tables.
+- Use `COUNT()` to get total bookings per property.
+- Apply the `RANK()` window function to order properties by popularity.
+
+**Expected Output Example:**
+| property_id | property_name | total_bookings | booking_rank |
+|--------------|----------------|----------------|---------------|
+| 45 | Accra Luxury Loft | 12 | 1 |
+| 33 | Beachfront Villa | 8 | 2 |
+| 77 | Cozy Apartment | 8 | 2 |
+| 21 | City Center Studio | 4 | 3 |
+
+---
+
+### Summary
+This task demonstrates:
+- How to use **COUNT()** and **GROUP BY** for summarization.
+- How to apply **window functions** like `RANK()` to create analytics.
+- How to analyze user and property activity trends efficiently.
+
+
