@@ -58,3 +58,53 @@ CREATE INDEX idx_properties_location ON properties(location);
 -- ============================================================
 -- End of database_index.sql
 -- ============================================================
+-- ============================================================
+-- DATABASE INDEX CREATION AND PERFORMANCE TEST
+-- Project: alx-airbnb-database
+-- Task: 3 - Implement Indexes for Optimization
+-- ============================================================
+
+-- ------------------------------------------------------------
+-- 1️⃣ Bookings table indexes
+-- ------------------------------------------------------------
+CREATE INDEX idx_bookings_status ON bookings(status);
+CREATE INDEX idx_bookings_user_id ON bookings(user_id);
+CREATE INDEX idx_bookings_user_status ON bookings(user_id, status);
+
+-- ------------------------------------------------------------
+-- 2️⃣ Users table index
+-- ------------------------------------------------------------
+CREATE INDEX idx_users_email ON users(email);
+
+-- ------------------------------------------------------------
+-- 3️⃣ Properties table index
+-- ------------------------------------------------------------
+CREATE INDEX idx_properties_location ON properties(location);
+
+-- ============================================================
+-- PERFORMANCE MEASUREMENT
+-- ============================================================
+
+-- 🧩 Before Index Creation
+-- (For documentation: this part would normally be tested before creating the indexes)
+-- You can re-run this in DB Fiddle before creating indexes to get the baseline.
+
+EXPLAIN ANALYZE
+SELECT b.id, b.user_id, b.property_id, b.status, u.email
+FROM bookings b
+JOIN users u ON b.user_id = u.id
+WHERE b.user_id = 3 AND b.status = 'confirmed'
+ORDER BY b.id;
+
+-- ⚙️ After Index Creation
+-- Now that indexes exist, measure again.
+EXPLAIN ANALYZE
+SELECT b.id, b.user_id, b.property_id, b.status, u.email
+FROM bookings b
+JOIN users u ON b.user_id = u.id
+WHERE b.user_id = 3 AND b.status = 'confirmed'
+ORDER BY b.id;
+
+-- ============================================================
+-- END OF FILE
+-- ============================================================
