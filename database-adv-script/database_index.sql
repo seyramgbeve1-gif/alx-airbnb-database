@@ -39,3 +39,22 @@ WHERE p.location = 'Accra';
 
 -- ✅ After indexes are added, run the same EXPLAIN again
 -- You should notice reduced cost and use of idx_* indexes in the plan.
+-- ============================================================
+-- DATABASE INDEX CREATION SCRIPT
+-- Project: alx-airbnb-database
+-- Task: 3 - Implement Indexes for Optimization
+-- ============================================================
+
+-- Bookings table indexes
+CREATE INDEX idx_bookings_status ON bookings(status);
+CREATE INDEX idx_bookings_user_id ON bookings(user_id);
+
+-- Users table index
+CREATE INDEX idx_users_email ON users(email);
+
+-- Properties table index
+CREATE INDEX idx_properties_location ON properties(location);
+
+-- ============================================================
+-- End of database_index.sql
+-- ============================================================
