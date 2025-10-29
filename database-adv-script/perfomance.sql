@@ -7,8 +7,8 @@
 -- ------------------------------------------------------------
 -- 1️⃣ INITIAL (UNOPTIMIZED) QUERY
 -- ------------------------------------------------------------
--- This query retrieves all bookings with user, property, and payment info
--- It performs multiple joins without filters, which can cause full scans.
+-- Retrieves all bookings with user, property, and payment info
+-- Performs multiple joins without filters, causing full scans
 
 EXPLAIN ANALYZE
 SELECT b.id AS booking_id,
@@ -30,10 +30,9 @@ JOIN payments pay ON pay.booking_id = b.id;
 -- 2️⃣ OPTIMIZED QUERY
 -- ------------------------------------------------------------
 -- Improvements:
--- - Filters results to confirmed bookings
+-- - Uses WHERE with multiple filters (AND)
 -- - Uses only necessary columns
--- - Relies on existing indexes (user_id, status, property_id)
--- - Avoids unnecessary sorting or joins
+-- - Takes advantage of indexes on status, user_id, and property_id
 
 EXPLAIN ANALYZE
 SELECT b.id AS booking_id,
@@ -45,4 +44,5 @@ FROM bookings b
 JOIN users u ON b.user_id = u.id
 JOIN properties p ON b.property_id = p.id
 JOIN payments pay ON pay.booking_id = b.id
-WHERE b.status = 'confirmed';
+WHERE b.status = 'confirmed'
+  AND pay.amount > 0;
